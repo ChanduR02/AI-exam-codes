@@ -1,0 +1,349 @@
+============== Feed Back Form ==================
+
+<html>
+<head> <title> -- RS1 -- </title>
+<script>
+function checkPassword(form) { password1 =
+form.password1.value; password2 =
+form.password2.value;
+if (password1 != password2) { alert ("\nPassword
+did not match: Please try again...") return false;
+ }
+ else{
+ alert ("Logged In Successfully")
+ return true;
+ }
+}
+</script>
+</head> <style> body { background-image:
+url('https://i.pinimg.com/originals/1d/92/43/1d92433c2a6fa153f56ce014253199b4.
+gif'); background-repeat: no-repeat; background-attachment: fixed; backgroundsize:
+cover;
+}
+table {
+ border: 1px solid black; padding: 25px; borderradius: 20px;
+} th, td {
+
+border: 3px solid white; border-radius:
+10px; padding: 10px; backgroundcolor: #96D4D4;
+}
+</style>
+<body>
+<br><br><br><br><br><br><br><br><br><br> <center>
+<h1> &#128311&#128310&#128311&#128310&#128311 Login
+&#128311&#128310&#128311&#128310&#128311 </h1>
+<form onSubmit = "return checkPassword(this)">
+<table align = "center">
+<tr>
+ <td align = "right">Username:</td>
+<td><input type="text" name="fullName" onkeypress="return (event.charCode > 64 &&
+event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"
+placeholder="User name"></td>
+</tr>
+<tr>
+ <td align = "right">Password:</td>
+<td><input type = password name = password1 size = 25 pattern="(?=.*\d)(?=.*[a-z])(?=.*[AZ]).{8,}" required placeholder="Password Here"></td>
+</tr>
+<tr>
+ <td align = "right">Confirm Password:</td>
+<td><input type = password name = password2 size = 25 pattern="(?=.*\d)(?=.*[a-z])(?=.*[AZ]).{8,}" required placeholder="Re-enter Password"></td> </tr>
+<tr>
+ <td align = "right">Email : </td>
+<td><input type="email" id="email" name="email" placeholder="Enter Email"></td>
+
+</tr>
+<tr>
+ <td></td>
+ <td align = "center"><input type = submit value =
+"Submit">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type = submit value = "Cancel"></td>
+</tr>
+</table>
+</form>
+</body>
+</html>
+
+
+
+
+======================= Callender Code ========================
+
+<?php
+// Get current month and year
+$month = date('m');
+$year = date('Y');
+
+// Get the first and last day of the month
+$firstDay = date('N', strtotime("{$year}-{$month}-01"));
+$lastDay = date('t', strtotime("{$year}-{$month}-01"));
+
+// Display the calendar
+echo "<h2>" . date('F Y') . "</h2>";
+echo "<table>";
+echo "<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr>";
+
+// Display the days of the month
+echo "<tr>";
+for ($i = 1; $i < $firstDay; $i++) {
+    echo "<td></td>";
+}
+
+for ($day = 1; $day <= $lastDay; $day++) {
+    echo "<td>{$day}</td>";
+
+    if (($day + $firstDay - 1) % 7 == 0) {
+        echo "</tr>";
+        if ($day != $lastDay) {
+            echo "<tr>";
+        }
+    }
+}
+
+while (($day + $firstDay - 1) % 7 != 0) {
+    echo "<td></td>";
+    $day++;
+}
+
+echo "</tr>";
+echo "</table>";
+?>
+
+
+
+
+2nd code====
+
+<?php
+// Create a DateTime object for the current month
+$now = new DateTime();
+// Get the number of days in the month
+$days_in_month = $now->format('t');
+// Display the calendar
+echo "<h2>{$now->format('F Y')}</h2>";
+echo "<table>";
+echo
+"<tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri<
+/th><th>Sat </th></tr>";
+// Start the calendar from the first day of the month
+$now->modify('first day of this month');
+// Loop through the days of the month
+while ($now->format('j') <= $days_in_month) {
+ if ($now->format('w') == 0) {
+ echo "<tr>";
+ }
+ echo "<td>{$now->format('j')}</td>";
+ if ($now->format('w') == 6) {
+ echo "</tr>";
+ }
+ $now->modify('+1 day');
+}
+echo "</table>";
+?>
+
+
+
+
+================== online store front ==================
+
+
+<?php
+// Retrieve product data from the database
+$products = [
+ ['id' => 1, 'name' => 'Product 1', 'price' => 10.99],
+ ['id' => 2, 'name' => 'Product 2', 'price' => 19.99],
+ ['id' => 3, 'name' => 'Product 3', 'price' => 5.99]
+];
+// Display products
+foreach ($products as $product) {
+ echo "<h3>{$product['name']}</h3>";
+ echo "<p>Price: {$product['price']}</p>";
+ echo "<button>Add to Cart</button>";
+}
+?>
+
+
+================= shopping card mechanism==================
+
+
+<?php
+// Start or resume the session
+session_start();
+// Add a product to the cart
+if (isset($_POST['add_to_cart'])) {
+ $product_id = $_POST['product_id'];
+ $quantity = $_POST['quantity'];
+ // Check if the product is already in the cart
+ if (isset($_SESSION['cart'][$product_id])) {
+ $_SESSION['cart'][$product_id] += $quantity;
+ } else {
+ $_SESSION['cart'][$product_id] = $quantity;
+ }
+ echo "Product added to cart.";
+}
+// Display the cart contents
+if (isset($_SESSION['cart'])) {
+ foreach ($_SESSION['cart'] as $product_id => $quantity) {
+ echo "<p>Product ID: {$product_id}, Quantity: {$quantity}</p>";
+ }
+} else {
+ echo "Cart is empty.";
+}
+?>
+
+
+========== array of doubles & integers=============
+
+<?php
+$numbers = array(1.051, 2.002,3, 4.526, 0.005, 0.006, 0.007, 0.008, 0.009); foreach ($numbers as
+$number) print $number."->". number_format($number, 2,'.', ',')." <br>"; ?> 
+
+
+=========== birthday countdown======================
+
+<?php
+$target_days = mktime(0,0,0,07,25,2022);//modify the birth day 07/25/2022 $today=
+time();
+$diff_days = ($target_days -$today);
+$days = (int)($diff_days/86400); print "Days till next birthday: $days days!"."\n"; ?>
+
+
+================ open & close database============
+
+<?php
+$con=mysqli_connect('localhost', 'root', '','poll_mysqli') or
+die(mysqli_error()); if($con)
+{
+echo "database connected succesfully"."<br>";
+}
+$check=mysqli_close($con);
+if($check)
+{
+echo "database closed succesfully"."<br>";
+}
+?>
+
+
+================= if else & switch ===========
+1) if else
+
+
+<html>
+<body>
+<?php
+$t = date("H");// H means HOUR
+if ($t < "15")
+{
+echo "Have a good day!";
+}
+else
+{
+echo "Have a good night!";
+}
+?>
+</body>
+</html>
+
+
+2) switch 
+
+<html>
+<body>
+<?php
+$favcolor = "red";
+switch ($favcolor)
+{
+case "red":
+echo "Your favorite color is red!";
+break;
+case "blue":
+echo "Your favorite color is blue!";
+break;
+case "green":
+echo "Your favorite color is green!";
+break;
+default:
+echo "Your favorite color is neither red, blue, nor green!";
+}
+?>
+</body>
+</html>
+
+
+====================== for, while, dowhile, foreach ===============
+
+1) for ====
+
+<html>
+<body>
+<?php
+for ($x = 0; $x <= 3; $x++) {
+echo "The number is: $x <br>";
+}
+?>
+</body>
+</html>
+
+
+2) while =====
+
+<html>
+<body>
+<?php
+$x = 1;
+while($x <= 3) {
+echo "The number is: $x <br>";
+$x++;
+}
+?>
+</body>
+</html>
+
+3) do while =====
+
+<html>
+<body>
+<?php
+$x = 1;
+do {
+echo "The number is: $x <br>";
+$x++;
+} while ($x <= 3);
+?>
+</body>
+</html>
+
+4) for each ==========
+
+<html>
+<body>
+<?php
+$colors = array("red", "green", "3", "yellow");
+foreach ($colors as $value) {
+echo "$value <br>";
+}
+?>
+</body>
+</html>
+
+
+====================== to create and access numeric values =================
+
+<html>
+<body>
+<?php
+/* First method to create array. */
+$numbers = array( 1, 2, 3, 4, 5);
+foreach( $numbers as $value ) {
+echo "Value is $value <br />";
+}
+/* Second method to create array. */
+$numbers[0] = "one";
+$numbers[1] = "two";
+$numbers[2] = "three";
+$numbers[3] = "four";
+$numbers[4] = "five";
+foreach( $numbers as $value ) {
+echo "Value is $value <br />";
+}
+?>
+</body>
+</html>
